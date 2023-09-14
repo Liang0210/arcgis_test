@@ -57,28 +57,28 @@ onMounted(() => {
     locationToAddress(locatorUrl, { location: e.mapPoint })
       .then((res) => {
         address = res.address
-        view.popup.content=address
+        view.popup.content = address
         // view.openPopup({
         //   location: e.mapPoint
         // })
       })
       .catch((err) => {
         address = '无地址信息'
-       
+
       })
     view.hitTest(e).then(function (response) {
       if (response.results.length) {
         view.openPopup({
-          location:e.mapPoint,
-          title:response.results[0].graphic.attributes.Name
+          location: e.mapPoint,
+          title: response.results[0].graphic.attributes.Name
         })
         console.log(response);
-      }else{
-        view.popup.title=`[${lon},${lat}]`
+      } else {
+        view.popup.title = `[${lon},${lat}]`
         view.openPopup()
       }
     });
-    
+
 
 
   })
