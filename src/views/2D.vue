@@ -72,7 +72,7 @@ onMounted(() => {
         const selectedGraphic = response.results[0].graphic;
         selectedGraphic.geometry = polyGon;
         selectedGraphic.symbol = polyGonSymbol
-        selectedGraphic.attributes=attributes
+        selectedGraphic.attributes = attributes
         view.graphics.removeAll();
         view.graphics.add(selectedGraphic)
         view.openPopup({
