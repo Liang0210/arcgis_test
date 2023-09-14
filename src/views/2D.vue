@@ -27,14 +27,14 @@ const polyGonSymbol = {
 const attributes = {
   Name: '恒隆广场spring city 66'
 };
-const polygonGraphic = new Graphic({
-  geometry: polyGon,
-  symbol: polyGonSymbol,
-  attributes: attributes,
-  popupTemplate: {
-    title: '{Name}'
-  }
-});
+// const polygonGraphic = new Graphic({
+//   geometry: polyGon,
+//   symbol: polyGonSymbol,
+//   attributes: attributes,
+//   popupTemplate: {
+//     title: '{Name}'
+//   }
+// });
 onMounted(() => {
   const map = new Map({
     basemap: 'hybrid'
@@ -47,7 +47,7 @@ onMounted(() => {
     zoom: 16,
     center: [102.721, 25.04],
   });
-  view.graphics.add(polygonGraphic)
+  // view.graphics.add(polygonGraphic)
   view.popupEnabled = false;
   view.on('click', (e) => {
     const lat = Math.round(e.mapPoint.latitude * 1000) / 1000;
@@ -67,15 +67,26 @@ onMounted(() => {
 
       })
     view.hitTest(e).then(function (response) {
+
       if (response.results.length) {
+        const selectedGraphic = response.results[0].graphic;
+        selectedGraphic.geometry = polyGon;
+        selectedGraphic.symbol = polyGonSymbol
+        selectedGraphic.attributes=attributes
+        view.graphics.removeAll();
+        view.graphics.add(selectedGraphic)
         view.openPopup({
           location: e.mapPoint,
           title: response.results[0].graphic.attributes.Name
         })
         console.log(response);
       } else {
+        // view.graphics.removeAll();
         view.popup.title = `[${lon},${lat}]`
-        view.openPopup()
+        view.graphics.removeAll();
+        view.openPopup({
+          location: e.mapPoint,
+        })
       }
     });
 
