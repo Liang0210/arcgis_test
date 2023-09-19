@@ -67,7 +67,6 @@ onMounted(() => {
 
       })
     view.hitTest(e).then(function (response) {
-
       if (response.results.length) {
         const selectedGraphic = response.results[0].graphic;
         selectedGraphic.geometry = polyGon;
@@ -89,9 +88,6 @@ onMounted(() => {
         })
       }
     });
-
-
-
   })
 
 })
